@@ -9,8 +9,8 @@ phases:
   pre_build:
     commands:
       # - pyenv install --list
-      - pyenv versions
-      - pyenv local 3.9.16
+      # - pyenv versions
+      # - pyenv local 3.10.10
       - pip install boto3
 
   build:
