@@ -11,9 +11,7 @@ git diff --name-only $start_hash $end_hash > changes.log
 cat changes.log
 apps=$(python3 -c "with open('changes.log') as f:lines = set(line.split('/')[1] for line in f if line.split('/')[0] == 'helm' and len(line.split('/')) >= 3);[print(line) for line in lines]")
 echo "List of Apps: $apps"
-# git log --pretty=oneline
-# git status
-# pwd
+set +e
 if [ -z "$apps" ]; then 
   echo "no changes in any application"
 else
