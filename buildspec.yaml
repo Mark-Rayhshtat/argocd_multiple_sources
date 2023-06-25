@@ -1,6 +1,19 @@
 version: 0.2
-        
+
 phases:
+
+  install:
+    commands:
+      - env=${env}
+
+  pre_build:
+    commands:
+      # - pyenv install --list
+      - pyenv versions
+      - pyenv local 3.9.16
+      - pip install boto3
+
   build:
     commands:
-      - ls
+      - chmod 755 ./script.sh 
+      - ./script.sh
