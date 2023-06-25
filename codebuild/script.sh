@@ -18,5 +18,12 @@ else
   for app in "${apps[@]}"
   do
     echo "App: $app"
+    helm package $app
+    aws ecr get-login-password \
+     --region us-east-1 | helm registry login \
+     --username AWS \
+     --password-stdin 581349712378.dkr.ecr.us-east-1.amazonaws.com
+    file=$(ls $app-*.tgz)
+    helm push $file oci://581349712378.dkr.ecr.us-east-1.amazonaws.com/
   done
 fi
