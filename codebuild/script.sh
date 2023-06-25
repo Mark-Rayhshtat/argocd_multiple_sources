@@ -25,6 +25,10 @@ else
      --password-stdin 581349712378.dkr.ecr.us-east-1.amazonaws.com
     ls
     file=$(ls $app-*.tgz)
+    echo $file
     helm push $file oci://581349712378.dkr.ecr.us-east-1.amazonaws.com/
+
+    # update Chart.yaml version
+    # update version of argocd application
   done
 fi
