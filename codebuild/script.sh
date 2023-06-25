@@ -18,7 +18,8 @@ else
   for app in "${apps[@]}"
   do
     echo "App: $app"
-    helm package ./helm/$app
+    date=$(date +'%Y%m%d%H%M%S')
+    helm package --version $date ./helm/$app
     aws ecr get-login-password \
      --region us-east-1 | helm registry login \
      --username AWS \
@@ -28,7 +29,6 @@ else
     echo $file
     helm push $file oci://581349712378.dkr.ecr.us-east-1.amazonaws.com/
 
-    # update Chart.yaml version
     # update version of argocd application
   done
 fi
