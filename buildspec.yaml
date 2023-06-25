@@ -4,5 +4,3 @@ phases:
   build:
     commands:
       - ls
-
-
