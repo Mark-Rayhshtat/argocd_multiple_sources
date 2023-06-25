@@ -3,6 +3,7 @@ set -e
 echo "Create list of updated applications"
 echo "--------------------------------------------------------------"
 # aws codepipeline list-pipeline-executions --pipeline-name pipeline-deploy-service01-api-${env} --region eu-central-1
+aws codepipeline list-pipeline-executions --pipeline-name codepipeline-argocd-test --region us-east-1
 start_hash=$(aws codepipeline list-pipeline-executions --pipeline-name codepipeline-argocd-test --region us-east-1 --query 'pipelineExecutionSummaries[?(status==`InProgress` || status==`Succeeded`)]'| jq -r .[0].sourceRevisions[0].revisionId)
 echo $start_hash
 end_hash=  $(aws codepipeline list-pipeline-executions --pipeline-name codepipeline-argocd-test --region us-east-1 --query 'pipelineExecutionSummaries[?(status==`InProgress` || status==`Succeeded`)]'| jq -r .[1].sourceRevisions[0].revisionId)
