@@ -9,7 +9,7 @@ end_hash=$(aws codepipeline list-pipeline-executions --pipeline-name pipeline-de
 echo $end_hash
 git diff --name-only $start_hash $end_hash > changes.log
 cat changes.log
-apps=$(python3 -c "with open('changes.log') as f:lines = set(line.split('/')[1] for line in f if line.split('/')[0] == 'src' and len(line.split('/')) >= 3);[print(line) for line in lines]")
+apps=$(python3 -c "with open('changes.log') as f:lines = set(line.split('/')[1] for line in f if line.split('/')[0] == 'helm' and len(line.split('/')) >= 3);[print(line) for line in lines]")
 echo "List of Apps: $apps"
 # git log --pretty=oneline
 # git status
