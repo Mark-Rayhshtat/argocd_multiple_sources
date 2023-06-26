@@ -17,3 +17,7 @@ http {
    }
 }
 '
+  game.properties: |
+    enemies=aliens
+    lives=3
+    enemies.cheat=true
