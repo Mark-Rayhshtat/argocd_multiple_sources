@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 
+
+      - name: Get all changed apps
+        id: changed-files-yaml
+        uses: tj-actions/changed-files@v37
+        with:
+          files_yaml: |
+            app1:
+              - helm/app1/**
+              - !helm/app1/values.yaml
+              - !helm/app1/values_dev.yaml
+            app2:
+              - helm/app2/**
+              - !helm/app2/values.yaml
+              - !helm/app2/values_dev.yaml
+      - name: Run step if app1 file(s) change
+        if: steps.changed-files-yaml.outputs.app1_any_changed == 'true'
+        run: |
+          echo "One or more app1 file(s) has changed."
+          echo "List all the files that have changed: ${{ steps.changed-files-yaml.outputs.app1_all_changed_files }}"
+      - name: Run step if app2 file(s) change
+        if: steps.changed-files-yaml.outputs.app2_any_changed == 'true'
+        run: |
+          echo "One or more app2 file(s) has changed."
+          echo "List all the files that have changed: ${{ steps.changed-files-yaml.outputs.app2_all_changed_files }}"
+      
