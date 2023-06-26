@@ -28,6 +28,15 @@ jobs:
               - helm/app2/**
               - !helm/app2/values.yaml
               - !helm/app2/values_dev.yaml
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-2
+      - name: Some AWS commands
+        run: |
+          aws ecr describe-registry --region us-east-1
       - name: Run step if app1 file(s) change
         if: steps.changed-files-yaml.outputs.app1_any_changed == 'true'
         run: |
