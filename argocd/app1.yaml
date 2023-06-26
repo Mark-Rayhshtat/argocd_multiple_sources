@@ -8,19 +8,21 @@ metadata:
 spec:
   project: default
 
-  source:
-    repoURL: https://github.com/Mark-Rayhshtat/argocd_multiple_sources.git
-    targetRevision: main
-    path: helm/app1
+  sources:
+  - repoURL: 581349712378.dkr.ecr.us-east-1.amazonaws.com
+    targetRevision: "20230626054224"
+    chart: app1
 
     helm:
       valueFiles:
-      - values_dev.yaml
+      - $values/helm/app1/values_dev.yaml
+  - repoURL: https://github.com/Mark-Rayhshtat/argocd_multiple_sources.git
+    targetRevision: main
+    ref: values
   # Destination cluster and namespace to deploy the application
   destination:
     server: https://kubernetes.default.svc
     namespace: default
-
   # Sync policy
   syncPolicy:
     automated:

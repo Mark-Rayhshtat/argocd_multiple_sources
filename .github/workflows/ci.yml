@@ -34,9 +34,6 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-2
-      # - name: Some AWS commands
-      #   run: |
-      #     aws ecr describe-registry --region us-east-1
       - name: Run step if app1 file(s) change
         if: steps.changed-files-yaml.outputs.app1_any_changed == 'true'
         run: |
@@ -46,8 +43,6 @@ jobs:
           --region us-east-1 | helm registry login \
           --username AWS \
           --password-stdin 581349712378.dkr.ecr.us-east-1.amazonaws.com
-          ls
-          echo "app1-$date.tgz"
           helm push app1-$date.tgz oci://581349712378.dkr.ecr.us-east-1.amazonaws.com/
       - name: Run step if app2 file(s) change
         if: steps.changed-files-yaml.outputs.app2_any_changed == 'true'
@@ -58,7 +53,5 @@ jobs:
           --region us-east-1 | helm registry login \
           --username AWS \
           --password-stdin 581349712378.dkr.ecr.us-east-1.amazonaws.com
-          ls
-          echo "app2-$date.tgz"
           helm push app2-$date.tgz oci://581349712378.dkr.ecr.us-east-1.amazonaws.com/
       

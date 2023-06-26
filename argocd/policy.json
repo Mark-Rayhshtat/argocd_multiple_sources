@@ -1,12 +1,9 @@
-create regular codepipeline
-1. GitHub Source
-2. Full Clone
-3. add permisssions to Codebuild role
+{
+    "Version": "2012-10-17",
+    "Statement": [
         {
             "Effect": "Allow",
             "Action": [
-                "codestar-connections:UseConnection",
-                "codepipeline:ListPipelineExecutions",
                 "ecr:CompleteLayerUpload",
                 "ecr:GetAuthorizationToken",
                 "ecr:UploadLayerPart",
@@ -17,3 +14,5 @@ create regular codepipeline
             ],
             "Resource": "*"
         }
+    ]
+}
